@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Da Slippah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=League+Spartan:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Da Slippah</div>
+    <ul class="nav-links">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#movies">Movies</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#apply">Apply</a></li>
+    </ul>
+    <div class="auth">
+      <button onclick="openModal('login')">Login</button>
+      <button onclick="openModal('register')">Sign Up</button>
+      <span id="user-welcome" style="display:none;margin-left:1rem"></span>
+      <button id="logout" style="display:none" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <section id="home" class="section active">
+    <div class="hero">
+      <h1>Da Slippah 2</h1>
+      <p id="coming-soon">The Return of Weaponry • Coming 2026 <button onclick="this.parentElement.style.display='none'">×</button></p>
+      <button class="big-btn" onclick="watchTogether('movie1')">Watch Together</button>
+    </div>
+  </section>
+
+  <section id="movies" class="section">
+    <div class="movies">
+      <div class="movie-card" onclick="watchMovie('movie1')">
+        <div class="poster-placeholder">
+          <div class="gradient"></div>
+          <h3>Da Slippah 1</h3>
+          <span>2024</span>
+        </div>
+        <div class="info">
+          <h3>Da Slippah 1</h3>
+          <button onclick="event.stopPropagation();watchMovie('movie1')">Watch Alone</button>
+          <button onclick="event.stopPropagation();watchTogether('movie1')">Watch Together</button>
+          <div class="progress"><div id="p-movie1" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="movie-card" onclick="watchMovie('memes')">
+        <div class="poster-placeholder memes">
+          <div class="gradient memes"></div>
+          <h3>Memes Edition</h3>
+          <span>2024</span>
+        </div>
+        <div class="info">
+          <h3>Memes Edition</h3>
+          <button onclick="event.stopPropagation();watchMovie('memes')">Watch Alone</button>
+          <button onclick="event.stopPropagation();watchTogether('memes')">Watch Together</button>
+          <div class="progress"><div id="p-memes" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="movie-card coming">
+        <div class="poster-placeholder sequel">
+          <div class="gradient sequel"></div>
+          <h3>Da Slippah 2</h3>
+          <span>2026</span>
+        </div>
+        <div class="info"><h3>Da Slippah 2</h3><p>Coming Soon</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="modal" class="modal"><div class="modal-content">
+    <span class="close" onclick="closeModal()">×</span>
+    <h2 id="modal-title">Login</h2>
+    <form id="auth-form" onsubmit="handleAuth(event)">
+      <input id="username" type="text" placeholder="Username" style="display:none">
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Submit</button>
+    </form>
+  </div></div>
+
+  <div id="watch-modal" class="modal"><div class="modal-content wide">
+    <span class="close" onclick="closeWatch()">×</span>
+    <iframe id="video-player" width="100%" height="500" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <div class="chat-area">
+      <div id="chat"></div>
+      <input id="chat-input" placeholder="Type message...">
+      <button onclick="sendChat()">Send</button>
+    </div>
+    <div id="users">Users in room: </div>
+  </div></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    let user = null, token = null, socket = io(), roomId = null, video = null;
+
+    function openModal(type) {
+      document.getElementById('modal').style.display = 'flex';
+      document.getElementById('modal-title').textContent = type === 'login' ? 'Login' : 'Register';
+      document.getElementById('username').style.display = type === 'register' ? 'block' : 'none';
+    }
+    function closeModal() { document.getElementById('modal').style.display = 'none'; }
+
+    async function handleAuth(e) {
+      e.preventDefault();
+      const form = e.target;
+      const body = { email: form[1].value, password: form[2].value };
+      if (form[0].style.display !== 'none') body.username = form[0].value;
+      const url = document.getElementById('modal-title').textContent === 'Login' ? '/api/login' : '/api/register';
+      const res = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+      const data = await res.json();
+      if (res.ok) {
+        user = data.user; token = data.token;
+        document.getElementById('user-welcome').textContent = 'Welcome ' + user.username;
+        document.getElementById('user-welcome').style.display = 'inline';
+        document.getElementById('logout').style.display = 'inline-block';
+        document.querySelectorAll('.auth button').forEach(b=>b.style.display='none');
+        closeModal();
+      } else alert(data.error);
+    }
+
+    function logout() {
+      user = null; token = null;
+      document.getElementById('user-welcome').style.display = 'none';
+      document.getElementById('logout').style.display = 'none';
+      document.querySelectorAll('.auth button').forEach(b=>b.style.display='inline-block');
+    }
+
+    function watchMovie(movie) {
+      const urls = {
+        movie1: "https://drive.google.com/file/d/1LyNZxP_bm2lVbnC6J9HPQn8hKbxlx0Al/preview",
+        memes: "https://drive.google.com/file/d/1P4TUhjsUsp9rH-BxsAFK7UdLbvhhUgOL/preview"
+      };
+      document.getElementById('video-player').src = urls[movie];
+      document.getElementById('watch-modal').style.display = 'flex';
+    }
+
+    function watchTogether(movie) {
+      roomId = prompt("Room ID (or leave blank for new room):") || Date.now().toString();
+      socket.emit('join-room', { roomId, username: user ? user.username : "Guest" });
+      watchMovie(movie);
+    }
+
+    function closeWatch() {
+      document.getElementById('watch-modal').style.display = 'none';
+      document.getElementById('video-player').src = '';
+    }
+
+    document.getElementById('video-player').onload = () => {
+      video = document.getElementById('video-player').contentWindow;
+      setInterval(() => {
+        if (video && roomId) socket.emit('sync', { roomId, time: 0, playing: true });
+      }, 5000);
+    };
+
+    socket.on('sync', d => { /* sync logic here if needed */ });
+    socket.on('chat', d => { document.getElementById('chat').innerHTML += `<div><b>${d.username}:</b> ${d.message}</div>`; });
+    socket.on('users', u => { document.getElementById('users').textContent = 'Users: ' + u.join(', '); });
+
+    function sendChat() {
+      const msg = document.getElementById('chat-input').value;
+      if (msg && roomId) {
+        socket.emit('chat', { roomId, message: msg });
+        document.getElementById('chat-input').value = '';
+      }
+    }
+  </script>
+</body>
+</html>

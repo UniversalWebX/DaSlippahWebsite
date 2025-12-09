@@ -1,0 +1,40 @@
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#000; color:#fff; font-family:Arimo,sans-serif; }
+.navbar { position:fixed; top:0; width:100%; padding:1.5rem 5%; background:rgba(0,0,0,0.85); backdrop-filter:blur(12px); display:flex; justify-content:space-between; align-items:center; z-index:1000; }
+.logo { font-family:'League Spartan',sans-serif; font-size:2.8rem; background:linear-gradient(90deg,#5230c7,#00ff6e); -webkit-background-clip:text; color:transparent; }
+.nav-links { display:flex; gap:2.5rem; list-style:none; }
+.nav-links a { color:#ccc; text-decoration:none; font-weight:500; }
+.nav-links a:hover, .nav-links a.active { color:#00ff6e; }
+.auth button { padding:0.6rem 1.4rem; margin-left:1rem; border:2px solid #5230c7; background:transparent; color:#fff; border-radius:50px; cursor:pointer; }
+.auth button:hover { background:#5230c7; }
+
+.hero { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+.hero h1 { font-size:7rem; background:linear-gradient(90deg,#5230c7,#00ff6e); -webkit-background-clip:text; color:transparent; }
+.hero p { font-size:1.8rem; margin:1rem 0; color:#aaa; }
+.big-btn { padding:1.2rem 3rem; background:#00ff6e; color:#000; border:none; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 10px 30px rgba(0,255,110,0.4); }
+.big-btn:hover { transform:translateY(-5px); }
+
+.section { display:none; padding:10rem 5% 5rem; }
+.section.active { display:block; }
+.movies { display:grid; grid-template-columns:repeat(auto-fit,minmax(350px,1fr)); gap:3rem; max-width:1400px; margin:0 auto; }
+.movie-card { background:#111; border-radius:20px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.5); transition:transform .4s; cursor:pointer; }
+.movie-card:hover { transform:translateY(-15px); }
+.poster-placeholder { position:relative; height:500px; background:#111; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+.poster-placeholder h3 { font-size:4rem; z-index:2; }
+.gradient { position:absolute; inset:0; background:linear-gradient(45deg,#5230c7,#00ff6e); opacity:0.5; }
+.memes .gradient { background:linear-gradient(45deg,#ff6b6b,#c73087); }
+.sequel .gradient { background:linear-gradient(45deg,#c73087,#ff6b6b); }
+.info { padding:2rem; text-align:center; }
+.info button { margin:0.5rem; padding:0.8rem 1.5rem; background:#00ff6e; color:#000; border:none; border-radius:30px; cursor:pointer; }
+.progress { height:10px; background:#333; border-radius:5px; overflow:hidden; margin:1.5rem 0; }
+.progress > div { height:100%; background:linear-gradient(90deg,#5230c7,#00ff6e); transition:width .6s; }
+
+.modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:2000; }
+.modal-content { background:#111; padding:3rem; border-radius:20px; width:90%; max-width:500px; position:relative; }
+.modal-content.wide { max-width:900px; }
+.close { position:absolute; top:1rem; right:1.5rem; font-size:2rem; cursor:pointer; color:#aaa; }
+.close:hover { color:#fff; }
+.chat-area { margin-top:1rem; display:flex; flex-direction:column; }
+#chat { height:200px; overflow-y:auto; background:#222; padding:1rem; border-radius:10px; margin-bottom:1rem; }
+#chat-input { padding:0.8rem; background:#333; border:none; color:#fff; border-radius:10px; }
