@@ -1,0 +1,83 @@
+/* Add animations */
+.animate-section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.6s ease-out;
+}
+
+.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.movie-card:hover {
+    animation: cardHover 0.3s ease-in-out;
+}
+
+@keyframes cardHover {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+/* Search bar */
+.nav-search {
+    display: flex;
+    background: #f0f0f0;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.nav-search input {
+    border: none;
+    padding: 0.5rem 1rem;
+    background: transparent;
+}
+
+.nav-search button {
+    background: transparent;
+    border: none;
+    padding: 0 1rem;
+    cursor: pointer;
+}
+
+/* Reviews */
+.reviews-section {
+    padding: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.review {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.review-form select, .review-form textarea {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Cast list */
+.cast-list {
+    margin-top: 1rem;
+    transition: max-height 0.3s ease;
+}
+
+.hidden {
+    max-height: 0;
+    overflow: hidden;
+}
+
+/* Optimizations: Use webp where possible, but since demo, skip */
+
+/* Accessibility: Add aria labels, etc. - done in HTML */
