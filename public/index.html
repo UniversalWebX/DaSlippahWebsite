@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Da Slippah - Official Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=League+Spartan:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Da Slippah</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#movie">Movies</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#applications">Apply</a></li>
+    </ul>
+    <div class="auth">
+      <button onclick="openModal('login')">Login</button>
+      <button onclick="openModal('register')">Sign Up</button>
+    </div>
+  </nav>
+
+  <section id="home" class="section active">
+    <div class="hero">
+      <h1>Da Slippah 2</h1>
+      <p>The Return of Weaponry • Coming 2026</p>
+      <button onclick="watchMovie('movie2')">Watch Together</button>
+    </div>
+  </section>
+
+  <section id="movie" class="section">
+    <div class="movies">
+      <div class="movie-card" onclick="watchMovie('movie1')">
+        <div class="poster-placeholder">
+          <div class="gradient"></div>
+          <h3>Da Slippah 1</h3>
+          <span>2024</span>
+        </div>
+        <div class="info">
+          <h3>Da Slippah 1</h3>
+          <div class="progress"><div id="p1" style="width:0%"></div></div>
+        </div>
+      </div>
+      <div class="movie-card coming-soon" onclick="alert('Coming 2026!')">
+        <div class="poster-placeholder sequel">
+          <div class="gradient sequel"></div>
+          <h3>Da Slippah 2</h3>
+          <span>2026 • Coming Soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">×</span>
+      <h2 id="modal-title">Login</h2>
+      <form id="auth-form">
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <input id="username-field" type="text" placeholder="Username" style="display:none">
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

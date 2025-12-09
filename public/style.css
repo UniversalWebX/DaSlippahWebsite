@@ -1,0 +1,27 @@
+* { margin:0; padding:0; box-sizing:border-box; font-family:Arimo,sans-serif; }
+body { background:#000; color:#fff; }
+.navbar { position:fixed; top:0; width:100%; padding:1rem; background:rgba(0,0,0,0.8); backdrop-filter:blur(10px); z-index:1000; display:flex; justify-content:space-between; align-items:center; }
+.logo { font-family:'League Spartan'; font-size:2rem; background:linear-gradient(90deg,#5230c7,#00ff6e); -webkit-background-clip:text; color:transparent; }
+.nav-links { display:flex; gap:2rem; list-style:none; }
+.nav-links a { color:#fff; text-decoration:none; }
+.auth button { margin-left:1rem; padding:0.5rem 1rem; background:#5230c7; border:none; border-radius:25px; color:#fff; cursor:pointer; }
+
+.hero { height:100vh; display:grid; place-items:center; text-align:center; }
+.hero h1 { font-size:6rem; font-family:'League Spartan'; background:linear-gradient(90deg,#5230c7,#00ff6e); -webkit-background-clip:text; color:transparent; }
+.hero p { font-size:1.5rem; margin:1rem 0; }
+.hero button { padding:1rem 3rem; font-size:1.2rem; background:#00ff6e; color:#000; border:none; border-radius:50px; cursor:pointer; }
+
+.movies { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem; padding:6rem 2rem; }
+.movie-card { cursor:pointer; }
+.poster-placeholder { position:relative; height:450px; background:#111; border-radius:16px; overflow:hidden; display:grid; place-items:center; text-align:center; }
+.poster-placeholder h3 { font-size:3rem; z-index:2; }
+.gradient { position:absolute; inset:0; background:linear-gradient(45deg,#5230c7,#00ff6e); opacity:0.4; }
+.sequel .gradient { background:linear-gradient(45deg,#c73087,#ff6b6b); }
+.coming-soon::after { content:"Coming 2026"; background:#ff6b6b; padding:0.5rem 1rem; border-radius:50px; font-size:1rem; }
+
+.modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); align-items:center; justify-content:center; z-index:2000; }
+.modal-content { background:#111; padding:2rem; border-radius:16px; width:90%; max-width:400px; text-align:center; }
+.close { float:right; font-size:2rem; cursor:pointer; }
+
+.progress { height:8px; background:#333; border-radius:4px; overflow:hidden; margin:1rem 0; }
+.progress > div { height:100%; width:0%; background:#00ff6e; transition:width 0.5s; }
