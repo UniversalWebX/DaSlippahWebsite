@@ -13,10 +13,9 @@ const io = socketIo(server, { cors: { origin: "*" } });
 app.use(express.json());
 app.use(express.static('public'));
 
-// In-memory storage
 let users = {};
 let reviews = { movie1: [], memes: [] };
-let userPosts = [];  // Userblog
+let userPosts = [];  // Userblog posts
 let rooms = {};
 
 app.post('/api/register', async (req, res) => {
@@ -30,7 +29,7 @@ app.post('/api/register', async (req, res) => {
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
   const u = users[email];
-  if (!u || !await bcrypt.compare(password, u.passwordHash)) return res.status(401).json({ error: "Wrong credentials" });
+  if (!u || !await bcrypt.compare(password, u.passwordHash)) return res.status(401).json({ error: "Invalid" });
   const token = jwt.sign({ email }, 'secret');
   res.json({ token, user: { username: u.username, progress: u.progress } });
 });
@@ -42,10 +41,11 @@ app.put('/api/progress', (req, res) => {
     const { movie, progress } = req.body;
     users[email].progress[movie] = progress;
     res.json(users[email].progress);
-  } catch { res.status(401).json({ error: "Bad token" }); }
+  } catch { res.status(401).json({ error: "Invalid token" }); }
 });
 
 app.get('/api/reviews/:movieId', (req, res) => res.json(reviews[req.params.movieId] || []));
+
 app.post('/api/reviews', (req, res) => {
   const { movieId, username, rating, comment } = req.body;
   reviews[movieId] = reviews[movieId] || [];
@@ -55,9 +55,10 @@ app.post('/api/reviews', (req, res) => {
 });
 
 app.get('/api/userblog', (req, res) => res.json(userPosts));
+
 app.post('/api/userblog', (req, res) => {
   const { username, title, content } = req.body;
-  const post = { id: Date.now(), username, title, content, date: new Date().toISOString(), likes: 0 };
+  const post = { id: Date.now().toString(), username, title, content, date: new Date().toISOString(), likes: 0 };
   userPosts.unshift(post);
   res.json(post);
 });
