@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, 1.0">
+  <title>Da Slippah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=League+Spartan:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Da Slippah</div>
+    <ul class="nav-links">
+      <li><a href="#home" class="nav-link active">Home</a></li>
+      <li><a href="#movies" class="nav-link">Movies</a></li>
+      <li><a href="#status" class="nav-link">Status</a></li>
+      <li><a href="#soundtracks" class="nav-link">Soundtracks</a></li>
+      <li><a href="#blog" class="nav-link">Blog</a></li>
+      <li><a href="#userblog" class="nav-link">Userblog</a></li>
+      <li><a href="#applications" class="nav-link">Apply</a></li>
+    </ul>
+    <div class="auth">
+      <button class="auth-btn" onclick="openModal('login')">Login</button>
+      <button class="auth-btn" onclick="openModal('register')">Sign Up</button>
+      <span id="welcome" style="display:none;color:#00ff6e;margin-left:1rem"></span>
+      <button id="logout" class="auth-btn" style="display:none" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home" class="section active">
+    <div class="hero">
+      <h1 class="title-glow">Da Slippah 2</h1>
+      <p id="coming-soon">The Return of Weaponry • Coming 2026 <button onclick="this.parentElement.remove()">×</button></p>
+      <div class="hero-buttons">
+        <a href="#movies" class="big-btn">Watch Movies</a>
+        <a href="#applications" class="big-btn secondary">Join the Crew</a>
+        <a href="#status" class="big-btn secondary">Production Status</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOVIES -->
+  <section id="movies" class="section">
+    <h2 class="section-title">Movies</h2>
+    <div class="movies-grid">
+      <div class="movie-card" onclick="watchMovie('movie1')">
+        <div class="poster"><div class="gradient"></div><h3>Da Slippah 1</h3><span>2024</span></div>
+        <div class="info"><h3>Da Slippah 1</h3>
+          <button class="play-btn" onclick="event.stopPropagation();watchMovie('movie1')">Watch Alone</button>
+          <button class="play-btn together" onclick="event.stopPropagation();watchTogether('movie1')">Watch Together</button>
+          <div class="progress"><div id="p-movie1" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="movie-card" onclick="watchMovie('memes')">
+        <div class="poster memes"><div class="gradient memes"></div><h3>Memes Edition</h3><span>2024</span></div>
+        <div class="info"><h3>Memes Edition</h3>
+          <button class="play-btn" onclick="event.stopPropagation();watchMovie('memes')">Watch Alone</button>
+          <button class="play-btn together" onclick="event.stopPropagation();watchTogether('memes')">Watch Together</button>
+          <div class="progress"><div id="p-memes" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="movie-card coming">
+        <div class="poster sequel"><div class="gradient sequel"></div><h3>Da Slippah 2</h3><span>2026</span></div>
+        <div class="info"><h3>Da Slippah 2</h3><p>Coming Soon</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATUS -->
+  <section id="status" class="section">
+    <h2 class="section-title">Production Status</h2>
+    <div class="status-grid">
+      <div>Filming in progress: Red Circle</div>
+      <div>Script percentage done: 10%</div>
+      <div>Actors acquired: 5%</div>
+      <div>Actors needed: 95% More</div>
+    </div>
+  </section>
+
+  <!-- SOUNDTRACKS -->
+  <section id="soundtracks" class="section">
+    <h2 class="section-title">Soundtracks</h2>
+    <div class="soundtrack-list">
+      <p>Rejectito - ft. Jasper</p>
+      <p>I’m Really Screwed</p>
+      <p>Grief and agony</p>
+      <p>World Wars</p>
+      <p>More coming soon!</p>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog" class="section">
+    <h2 class="section-title">Blog</h2>
+    <article class="blog-post">
+      <h3>Scene One Recording and new blog posts!</h3>
+      <p>This is the first post in the new Da Slippah blog thing we (darian) decided to create. I’ll try to post every week or so. News:</p>
+      <ol>
+        <li>Filming of scene one starting from Monday to Wednesday and to be done by the end of the week (hopefully)</li>
+        <li>Website visual revamp coming soon!</li>
+      </ol>
+      <p>To apply for a role in the movie or to work on things like editing and making the sets, <a href="#applications">click here</a></p>
+      <p><em>— Darian</em></p>
+    </article>
+  </section>
+
+  <!-- USERBLOG -->
+  <section id="userblog" class="section">
+    <h2 class="section-title">Userblog</h2>
+    <div id="posts"></div>
+    <div class="post-form" id="post-form" style="display:none">
+      <input placeholder="Title" id="post-title">
+      <textarea placeholder="Write something..." id="post-content"></textarea>
+      <button onclick="submitPost()">Post</button>
+    </div>
+  </section>
+
+  <!-- APPLICATIONS + TOS -->
+  <section id="applications" class="section">
+    <h2 class="section-title">Applications</h2>
+    <p>Join the crew! Fill out the form:</p>
+    <a href="https://forms.gle/tau7UAXefkZrJDt58" target="_blank" class="big-btn">Apply Now</a>
+    <div class="tos">
+      <h3>Terms of Service</h3>
+      <p>By applying you agree to the <a href="#" onclick="alert('Full TOS coming soon')">Da Slippah 2 Agreement</a>.</p>
+    </div>
+  </section>
+
+  <!-- MODALS -->
+  <div id="auth-modal" class="modal"><div class="modal-content">
+    <span class="close" onclick="closeModal('auth-modal')">×</span>
+    <h2 id="auth-title">Login</h2>
+    <form id="auth-form" onsubmit="handleAuth(event)">
+      <input id="username" placeholder="Username" style="display:none">
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit" class="auth-btn">Submit</button>
+    </form>
+  </div></div>
+
+  <div id="watch-modal" class="modal"><div class="modal-content wide">
+    <span class="close" onclick="closeWatch()">×</span>
+    <iframe id="video" width="100%" height="500" frameborder="0" allow="autoplay"></iframe>
+    <div class="chat-box">
+      <div id="chat"></div>
+      <input id="chat-input" placeholder="Say something...">
+      <button onclick="sendChat()">Send</button>
+    </div>
+    <div id="room-users">Users: </div>
+  </div></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
